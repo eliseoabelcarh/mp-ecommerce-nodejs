@@ -10,7 +10,7 @@ mercadopago.configure({
 });
 
 //const miSitioWeb = 'http://localhost:3000';
-const miSitioWeb = 'https://eliseoabelcarh-mpcommerce-node.herokuapp.com/';
+const miSitioWeb = 'https://eliseoabelcarh-mpcommerce-node.herokuapp.com';
 const referenciaExterna = 'eliseoabelcarh2@gmail.com';
 
 const pagador = {
