@@ -15,31 +15,25 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use(express.json());
 
 app.get('/', function (req, res) {
-	console.log('homeee');
 	res.render('home');
 });
 
 app.get('/detail', async function (req, res) {
 	const producto = await mp.create(req);
-	console.log('queryyyyyy armadaaa ', producto);
 	res.render('detail', producto);
 });
-app.post('/notifications', function (req, res) {
-	console.log('NOTIFICAARION ', req);
-	res.sendStatus(200);
-});
-app.get('/success', function (req, res) {
-	console.log('success');
-	res.send('successsss');
-});
 
-app.get('/pending', function (req, res) {
-	console.log('pending');
-	res.send('pendingsss');
+app.get('/success', function (req, res) {
+	res.render('success', req.query);
 });
 app.get('/failure', function (req, res) {
-	console.log('failure');
-	res.send('failuresss');
+	res.render('failure');
 });
-
+app.get('/pending', function (req, res) {
+	res.render('pending', req.query);
+});
+app.post('/notifications', function (req, res) {
+	console.log('notifications webhooks recibida ', req);
+	res.sendStatus(200);
+});
 app.listen(port);

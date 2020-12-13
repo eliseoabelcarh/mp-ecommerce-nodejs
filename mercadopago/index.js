@@ -9,7 +9,8 @@ mercadopago.configure({
 		'APP_USR-8208253118659647-112521-dd670f3fd6aa9147df51117701a2082e-677408439'
 });
 
-const miSitioWeb = 'http://localhost:3000';
+//const miSitioWeb = 'http://localhost:3000';
+const miSitioWeb = 'https://eliseoabelcarh-mpcommerce-node.herokuapp.com/';
 const referenciaExterna = 'eliseoabelcarh2@gmail.com';
 
 const pagador = {
@@ -26,7 +27,8 @@ const pagador = {
 		street_number: 1602
 	}
 };
-const metodosPagoExcluidos = [{ id: 'diners' }, { id: 'pagoefectivo_atm' }];
+const metodosPagoExcluidos = [{ id: 'diners' }];
+const tiposPagoExcluidos = [{ id: 'atm' }];
 const maximoDeCuotas = 6;
 
 // Crea un objeto de preferencia
@@ -40,11 +42,12 @@ let preference = {
 	payer: pagador,
 	payment_methods: {
 		excluded_payment_methods: metodosPagoExcluidos,
+		excluded_payment_types: tiposPagoExcluidos,
 		installments: maximoDeCuotas
 	},
 	auto_return: 'approved',
 	external_reference: referenciaExterna,
-	notification_url: 'https://hookb.in/QJmJgObaMwHkpp2WOlDD'
+	notification_url: 'https://hookb.in/xYoW1YYDPqS7zzYJejo2'
 	//notification_url: `${miSitioWeb}/notifications`
 };
 
@@ -53,28 +56,14 @@ const crearPreferencia = (producto) => {
 
 	return {
 		...preference,
-		/* 	collector_id: 677408439,
-		external_reference: referenciaExterna,
-		payer: pagador,
-		//notification_url: `${miSitioWeb}/notifications`,
-		auto_return: 'approved',
-		back_urls: {
-			success: `${miSitioWeb}/success`,
-			pending: `${miSitioWeb}/pending`,
-			failure: `${miSitioWeb}/failure`
-		},
-		payment_methods: {
-			excluded_payment_methods: metodosPagoExcluidos,
-			installments: maximoDeCuotas
-		}, */
 		items: [
 			{
 				id: '1234',
 				title: producto.title,
 				description: producto.description,
 				picture_url: `${miSitioWeb}${imagenUrl}`,
-				unit_price: Number.parseFloat(producto.price),
-				quantity: Number.parseInt(producto.unit)
+				quantity: Number.parseInt(producto.unit),
+				unit_price: Number.parseFloat(producto.price)
 			}
 		]
 	};
@@ -86,7 +75,8 @@ const mp = {
 			crearPreferencia(req.query)
 		);
 		console.log('RESSSSPONSEE', response);
-		req.query.init_point = response.body.sandbox_init_point;
+		//CAMBIARRRRRRRRR    INIT POINT
+		req.query.init_point = response.response.init_point;
 		return { ...req.query };
 	}
 };
