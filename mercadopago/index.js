@@ -47,8 +47,8 @@ let preference = {
 	},
 	auto_return: 'approved',
 	external_reference: referenciaExterna,
-	notification_url: 'https://hookb.in/xYoW1YYDPqS7zzYJejo2'
-	//notification_url: `${miSitioWeb}/notifications`
+	//notification_url: 'https://hookb.in/W1ENdp89WmtMooQex6n0'
+	notification_url: `${miSitioWeb}/notifications`
 };
 
 const crearPreferencia = (producto) => {
